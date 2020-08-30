@@ -1,0 +1,16 @@
+@import-normalize; 
+@import "./fonts";
+@import "./colors";
+
+html {
+    font-family: $primary-font;
+}
+
+body {
+    color: $text-color;
+    background-color: $bg-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-shadow: 0 1px 2px rgba($text-color, .1);
+}
