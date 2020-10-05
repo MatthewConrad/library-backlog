@@ -1,6 +1,7 @@
 @import-normalize;
 @import "./fonts";
 @import "./colors";
+@import "./mixins";
 
 * {
     margin: 0;
@@ -27,6 +28,14 @@ h6 {
 }
 
 .library {
-    max-width: 960px;
-    margin: 0 auto;
+    @include bp(desktop) {
+        margin: 0 auto;
+        width: 960px;
+        max-width: calc(100% - 280px);
+    }
+
+    @include bp(mobile) {
+        width: 100%;
+        margin: 0 48px 112px 48px;
+    }
 }
