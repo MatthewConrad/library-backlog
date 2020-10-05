@@ -1,0 +1,83 @@
+@import "colors";
+@import "mixins";
+
+.sidebar {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    background-color: $bg-color-secondary;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.4));
+    z-index: 10;
+
+    @include bp(desktop) {
+        flex-direction: column;
+        top: 0;
+        height: 100%;
+        width: 86px;
+        padding: 12px 0;
+    }
+
+    @include bp(mobile) {
+        flex-direction: row;
+        bottom: 0;
+        height: 86px;
+        width: 100%;
+        padding: 0 12px;
+    }
+}
+
+.user-image,
+.settings {
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+    margin: 0 auto;
+    background-color: white;
+
+    @include bp(desktop) {
+        margin: 0 auto;
+    }
+
+    @include bp(mobile) {
+        margin: 12px;
+    }
+}
+
+.button-container {
+    width: 104px;
+    height: 104px;
+    border-radius: 104px;
+    background-color: $bg-color-secondary;
+
+    @include bp(mobile) {
+        position: relative;
+        bottom: 16px;
+    }
+}
+
+.button {
+    width: 72px;
+    height: 72px;
+    border-radius: 72px;
+    position: relative;
+    top: 16px;
+    left: 16px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-color;
+    border: none;
+    outline: none;
+    background-image: linear-gradient(
+        -180deg,
+        $action-color-light-gradient 0%,
+        $action-color 55%
+    );
+    box-shadow: 1px 2px 8px 0 rgba(50, 47, 79, 0.5);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 1px 2px 12px 0 rgba(50, 47, 79, 0.5);
+    }
+}

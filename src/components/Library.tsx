@@ -16,7 +16,7 @@ export const Library = () => {
     })
 
     return (
-        <div>
+        <div className="library">
             <h1>Library</h1>
             <Bookshelf name="In Progress" books={inProgress} />
             <Bookshelf name="Backlog" books={backlog} />
