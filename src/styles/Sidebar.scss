@@ -28,11 +28,19 @@
 
 .user-image,
 .settings {
-    width: 64px;
-    height: 64px;
-    border-radius: 64px;
+    width: 56px;
+    height: 56px;
+    border-radius: 56px;
     margin: 0 auto;
-    background-color: white;
+    text-align: center;
+    font-size: 1.75em;
+    font-weight: 500;
+    line-height: 60px;
+    background: linear-gradient(-180deg, #fcf7f8 0%, #f3f4f7 55%);
+    color: $action-color-darker;
+    box-shadow: 1px 2px 8px 0 rgba(50, 47, 79, 0.125);
+    transition: all 0.3s ease-in-out;
+    transition-property: transform, box-shadow;
 
     @include bp(desktop) {
         margin: 0 auto;
@@ -40,6 +48,12 @@
 
     @include bp(mobile) {
         margin: 12px 48px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        box-shadow: 1px 2px 12px 0 rgba(50, 47, 79, 0.125);
     }
 }
 
@@ -76,6 +90,7 @@
     transition: all 0.3s ease-in-out;
 
     &:hover {
+        cursor: pointer;
         transform: scale(1.05);
         box-shadow: 1px 2px 12px 0 rgba(50, 47, 79, 0.5);
     }

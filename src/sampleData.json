@@ -12,7 +12,8 @@
             "title": "Dark Matter",
             "author": "Blake Crouch",
             "imageUrl": "https://books.google.com/books/content?id=85nrCgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
-            "currentPage": 0,
+            "currentPage": 270,
+            "totalPages": 320,
             "completed": false
         },
         {
