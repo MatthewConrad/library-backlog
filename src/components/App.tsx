@@ -1,14 +1,14 @@
-import React from 'react';
-import { Library } from './Library';
-import { Sidebar } from './Sidebar';
+import React from "react";
+import { Library } from "./Library";
+import { Sidebar } from "./Sidebar";
 
-const App = () => {
-  return (
-    <div className="App">
-      <Sidebar/>
-      <Library/>
-    </div>
-  );
-}
+const App: React.FC = () => {
+    return (
+        <div className="App">
+            <Sidebar />
+            <Library />
+        </div>
+    );
+};
 
 export default App;

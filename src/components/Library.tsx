@@ -1,19 +1,19 @@
 import React from "react";
 import { Bookshelf } from "./Bookshelf";
-import * as sampleData from "../sampleData.json"; 
+import * as sampleData from "../sampleData.json";
 import { BookData } from "../ts/BookData";
 
-export const Library = () => {
+export const Library: React.FC = () => {
     const books: BookData[] = sampleData.books;
     const inProgress: BookData[] = books.filter((book: BookData) => {
         return book.currentPage;
     });
     const backlog: BookData[] = books.filter((book: BookData) => {
         return !book.completed && !book.currentPage;
-    })
+    });
     const completed: BookData[] = books.filter((book: BookData) => {
         return book.completed;
-    })
+    });
 
     return (
         <div className="library">
