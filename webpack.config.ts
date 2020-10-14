@@ -2,7 +2,10 @@ import path from "path";
 import webpack from "webpack";
 
 const config: webpack.Configuration = {
-    entry: "./src/index.tsx",
+    entry: path.resolve(__dirname, "src/index.tsx"),
+    target: "web",
+    mode: "development",
+    devtool: "eval-source-map",
     module: {
         rules: [
             {
@@ -27,11 +30,6 @@ const config: webpack.Configuration = {
     output: {
         path: path.resolve(__dirname, "build/static"),
         filename: "bundle.js",
-    },
-    devServer: {
-        contentBase: path.join(__dirname, "build"),
-        compress: true,
-        port: 4000,
     },
 };
 
