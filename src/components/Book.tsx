@@ -1,6 +1,5 @@
 import React from "react";
 import { BookData } from "../ts/BookData";
-import "../styles/Book.scss";
 
 type Props = {
     data: BookData;

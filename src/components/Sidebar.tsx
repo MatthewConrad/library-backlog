@@ -1,6 +1,5 @@
 import React from "react";
 import { Sliders } from "react-feather";
-import "../styles/Sidebar.scss";
 
 export const Sidebar = () => {
     return (

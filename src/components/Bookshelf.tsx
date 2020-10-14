@@ -1,7 +1,6 @@
 import React from "react";
 import { BookData } from "../ts/BookData";
 import { Book } from "./Book";
-import "../styles/Bookshelf.scss";
 
 type Props = {
     name: string;
@@ -13,8 +12,8 @@ export const Bookshelf: React.FC<Props> = ({ name, books }) => {
         <div>
             <h2>{name}</h2>
             <div className="bookshelf">
-                { books.map( (bookData: BookData, index: number) => {
-                    return <Book data={bookData} key={"book"+index} />
+                {books.map((bookData: BookData, index: number) => {
+                    return <Book data={bookData} key={"book" + index} />;
                 })}
             </div>
         </div>
