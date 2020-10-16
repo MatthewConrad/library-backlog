@@ -1,7 +1,7 @@
 import React from "react";
 import { Bookshelf } from "./Bookshelf";
 import * as sampleData from "../sampleData.json";
-import { BookData } from "../ts/BookData";
+import { BookData } from "../types/BookData";
 
 export const Library: React.FC = () => {
     const books: BookData[] = sampleData.books;

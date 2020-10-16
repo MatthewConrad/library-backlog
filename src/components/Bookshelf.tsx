@@ -1,5 +1,5 @@
 import React from "react";
-import { BookData } from "../ts/BookData";
+import { BookData } from "../types/BookData";
 import { Book } from "./Book";
 
 type Props = {

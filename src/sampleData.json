@@ -39,6 +39,11 @@
             "author": "Charles Soule",
             "imageUrl": "http://books.google.com/books/content?id=zYUkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
             "completed": true
+        },
+        {
+            "title": "Inside a Marathon",
+            "author": "Scott Fauble & Ben Rosario",
+            "completed": false
         }
     ]
 }

@@ -31,12 +31,21 @@ $cover-height: 240px;
 .book-cover {
     width: $cover-width;
     height: $cover-height;
+    color: $action-color-lighter;
+    background-color: hsl(hue($action-color-darker), 15%, 50%);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     box-shadow: 2px 4px 8px rgba($text-color, 0.6);
     transition: all 0.25s ease-in-out;
     position: relative;
+
+    &__title,
+    &__author {
+        text-align: center;
+        font-weight: 700;
+        padding: 24px 12px;
+    }
 }
 
 .book-progress {
