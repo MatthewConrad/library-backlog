@@ -16,8 +16,9 @@
         "lint": "eslint 'src/**/*.{js,ts,tsx}'",
         "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
         "copy-assets": "copyfiles -u 1 src/assets/**/* build",
-        "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,React,Server\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch:sass\" \"npm run watch:react\" \"npm run watch:server\"",
+        "watch": "npm run copy-assets && concurrently -k -p \"[{name}]\" -n \"Sass,React,Server\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch:sass\" \"npm run watch:react\" \"npm run watch:server-on-all\"",
         "watch:server": "nodemon src/server.ts",
+        "watch:server-on-all": "nodemon src/server.ts --ext ts,tsx,json,scss,css",
         "watch:react": "webpack --watch",
         "watch:sass": "node-sass -w src/styles/main.scss build/static/main.css"
     },
@@ -62,6 +63,7 @@
         "eslint-plugin-react-hooks": "^4.1.2",
         "node-sass": "^4.14.1",
         "nodemon": "^2.0.5",
+        "reload": "^3.1.1",
         "ts-node": "^9.0.0",
         "typescript": "^3.7.5",
         "webpack": "^5.1.0",
