@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Bookshelf } from "./Bookshelf";
-import * as sampleData from "../sampleData.json";
 import { BookData } from "../types/BookData";
 
 export const Library: React.FC = () => {
-    const books: BookData[] = sampleData.books;
-    const inProgress: BookData[] = books.filter((book: BookData) => {
+    const [books, setBooks] = React.useState<BookData[]>();
+    useEffect(() => {
+        fetch("http://localhost:5000/books")
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setBooks(data);
+            });
+    }, []);
+
+    const inProgress: BookData[] | undefined = books?.filter((book: BookData) => {
         return book.currentPage;
     });
-    const backlog: BookData[] = books.filter((book: BookData) => {
+    const backlog: BookData[] | undefined = books?.filter((book: BookData) => {
         return !book.completed && !book.currentPage;
     });
-    const completed: BookData[] = books.filter((book: BookData) => {
+    const completed: BookData[] | undefined = books?.filter((book: BookData) => {
         return book.completed;
     });
 

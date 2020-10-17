@@ -4,7 +4,7 @@ import { Book } from "./Book";
 
 type Props = {
     name: string;
-    books: BookData[];
+    books: BookData[] | undefined;
 };
 
 export const Bookshelf: React.FC<Props> = ({ name, books }) => {
@@ -12,9 +12,10 @@ export const Bookshelf: React.FC<Props> = ({ name, books }) => {
         <div>
             <h2>{name}</h2>
             <div className="bookshelf">
-                {books.map((bookData: BookData, index: number) => {
-                    return <Book data={bookData} key={"book" + index} />;
-                })}
+                {books &&
+                    books.map((bookData: BookData, index: number) => {
+                        return <Book data={bookData} key={"book" + index} />;
+                    })}
             </div>
         </div>
     );
