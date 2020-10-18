@@ -32,14 +32,9 @@ export const Book: React.FC<Props> = ({ data }) => {
                 )}
                 {progressCompleteStyle && (
                     <div className="book-progress">
-                        <div className="pages-complete">
-                            {data.currentPage + " / " + data.totalPages}
-                        </div>
+                        <div className="pages-complete">{data.currentPage + " / " + data.totalPages}</div>
                         <div className="progress-bar">
-                            <div
-                                className="progress-complete"
-                                style={progressCompleteStyle}
-                            />
+                            <div className="progress-complete" style={progressCompleteStyle} />
                         </div>
                     </div>
                 )}

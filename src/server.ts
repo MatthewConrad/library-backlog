@@ -23,7 +23,7 @@ if (!process.env.DB_PORT) {
 }
 
 const app: express.Application = express();
-const database: any = new dbClient(
+const database: dbClient = new dbClient(
     process.env.DB_HOST,
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -33,14 +33,8 @@ const database: any = new dbClient(
 
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET,POST,PUT,DELETE,OPTIONS"
-    );
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Access-Control-Allow-Headers"
-    );
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers");
     next();
 });
 
@@ -48,10 +42,46 @@ app.use(express.static("build"));
 app.get("/books", (req, res) => {
     database
         .getBooks()
+        .then((response: BookData[]) => {
+            res.status(200).send(response);
+        })
+        .catch((error: Error) => {
+            res.status(500).send(error);
+        });
+});
+
+app.post("/books", (req, res) => {
+    database
+        .createBook(req.body)
         .then((response: BookData) => {
             res.status(200).send(response);
         })
-        .catch((error: any) => {
+        .catch((error: Error) => {
+            res.status(500).send(error);
+        });
+});
+
+app.post("/books/update", (req, res) => {
+    database
+        .updateBook(req.body)
+        .then((response: BookData) => {
+            res.status(200).send(response);
+        })
+        .catch((error: Error) => {
+            res.status(500).send(error);
+        });
+});
+
+app.delete("/books/:id", (req, res) => {
+    database
+        .deleteBook(parseInt(req.params.id))
+        .then(() => {
+            res.status(200).send({
+                id: parseInt(req.params.id),
+                success: true,
+            });
+        })
+        .catch((error: Error) => {
             res.status(500).send(error);
         });
 });
@@ -65,8 +95,5 @@ reload(app)
     })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .catch(function (err: any) {
-        console.error(
-            "Reload could not start, could not start server/sample app",
-            err
-        );
+        console.error("Reload could not start, could not start server/sample app", err);
     });

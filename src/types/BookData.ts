@@ -1,7 +1,8 @@
 export type BookData = {
+    id?: number;
     title: string;
     author: string;
-    imageUrl: string;
+    imageUrl?: string;
     currentPage?: number;
     totalPages?: number;
     completed: boolean;
