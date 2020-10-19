@@ -22,7 +22,7 @@
         "watch:server": "nodemon src/server.ts",
         "watch:server-on-all": "nodemon src/server.ts --ext ts,tsx,json,scss,css",
         "watch:react": "webpack --watch",
-        "watch:sass": "node-sass -w src/styles/main.scss build/static/main.css"
+        "watch:sass": "node-sass -w src/styles -o build/static"
     },
     "eslintConfig": {
         "extends": "react-app"

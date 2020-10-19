@@ -81,11 +81,7 @@
     color: $text-color;
     border: none;
     outline: none;
-    background-image: linear-gradient(
-        -180deg,
-        $action-color-light-gradient 0%,
-        $action-color 55%
-    );
+    background-image: linear-gradient(-180deg, $action-color-light-gradient 0%, $action-color 55%);
     box-shadow: 1px 2px 8px 0 rgba(50, 47, 79, 0.5);
     transition: all 0.3s ease-in-out;
 
