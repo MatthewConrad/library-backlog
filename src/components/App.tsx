@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { AddBookModal } from "./AddBookModal";
 import { Library } from "./Library";
 import { Sidebar } from "./Sidebar";
 
 const App: React.FC = () => {
+    const [showAddBook, setShowAddBook] = useState(false);
+    const [content, setContent] = useState("");
+
+    const handleShow = (content: string) => {
+        setShowAddBook(true);
+        setContent(content);
+    };
+
+    const handleClose = () => {
+        setShowAddBook(false);
+        setContent("");
+    };
+
     return (
         <div className="App">
-            <Sidebar />
+            <Sidebar onAddClick={handleShow} />
             <Library />
+            <AddBookModal show={showAddBook} content={content} onCloseClick={handleClose} />
         </div>
     );
 };
