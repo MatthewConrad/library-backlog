@@ -38,7 +38,7 @@
     line-height: 60px;
     background: linear-gradient(-180deg, #fcf7f8 0%, #f3f4f7 55%);
     color: $action-color-darker;
-    box-shadow: 1px 2px 8px 0 rgba(50, 47, 79, 0.125);
+    box-shadow: 1px 2px 8px hsla(hue($action-color), 100%, 25%, 0.25);
     transition: all 0.3s ease-in-out;
     transition-property: transform, box-shadow;
 
@@ -53,7 +53,7 @@
     &:hover {
         cursor: pointer;
         transform: scale(1.05);
-        box-shadow: 1px 2px 12px 0 rgba(50, 47, 79, 0.125);
+        box-shadow: 1px 4px 12px hsla(hue($action-color), 100%, 25%, 0.25);
     }
 }
 
@@ -67,27 +67,10 @@
         position: relative;
         bottom: 16px;
     }
-}
 
-.button {
-    width: 72px;
-    height: 72px;
-    border-radius: 72px;
-    position: relative;
-    top: 16px;
-    left: 16px;
-    font-size: 2rem;
-    font-weight: 700;
-    color: $text-color;
-    border: none;
-    outline: none;
-    background-image: linear-gradient(-180deg, $action-color-light-gradient 0%, $action-color 55%);
-    box-shadow: 1px 2px 8px 0 rgba(50, 47, 79, 0.5);
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        cursor: pointer;
-        transform: scale(1.05);
-        box-shadow: 1px 2px 12px 0 rgba(50, 47, 79, 0.5);
+    .action-button {
+        position: relative;
+        top: 16px;
+        left: 16px;
     }
 }

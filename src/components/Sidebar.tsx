@@ -2,7 +2,7 @@ import React from "react";
 import { Sliders } from "react-feather";
 
 type Props = {
-    onAddClick: (content: string) => void;
+    onAddClick: (content?: string) => void;
 };
 
 export const Sidebar: React.FC<Props> = ({ onAddClick }) => {
@@ -10,7 +10,7 @@ export const Sidebar: React.FC<Props> = ({ onAddClick }) => {
         <div className="sidebar">
             <div className="user-image">M</div>
             <div className="button-container">
-                <button className="button" onClick={() => onAddClick("fake content")}>
+                <button className="action-button action-button--round" onClick={() => onAddClick("fake content")}>
                     +
                 </button>
             </div>

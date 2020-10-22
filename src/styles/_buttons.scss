@@ -1,0 +1,69 @@
+.action-button,
+.secondary-button {
+    height: 48px;
+    width: 144px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 1em;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+    &--round {
+        width: 72px;
+        height: 72px;
+        border-radius: 72px;
+        font-size: 2rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+.action-button {
+    color: $text-color;
+    background-image: linear-gradient(-180deg, $action-color-light-gradient 0%, $action-color 55%);
+    box-shadow: 1px 2px 8px hsla(hue($action-color), 75%, 25%, 0.5);
+
+    &:hover {
+        box-shadow: 1px 4px 12px hsla(hue($action-color), 75%, 25%, 0.5);
+    }
+}
+
+.secondary-button {
+    color: $text-color-secondary;
+    background: none;
+}
+
+.secondary-button,
+.icon-button {
+    &:hover {
+        transform: scale(1.05);
+        background-color: $bg-color-secondary;
+        box-shadow: 2px 4px 12px 0 hsla(hue($bg-color-secondary), 15, 15, 0.25);
+    }
+}
+
+.icon-button {
+    width: 48px;
+    height: 48px;
+    padding-top: 4px;
+    border-radius: 48px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:focus {
+        border-radius: 48px;
+        outline: none;
+        box-shadow: 0 0 4px $action-color, 0 0 4px $action-color, 0 0 4px $action-color;
+    }
+
+    svg {
+        color: $text-color;
+        transition: all 0.3s ease-in-out;
+    }
+}

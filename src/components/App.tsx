@@ -7,9 +7,9 @@ const App: React.FC = () => {
     const [showAddBook, setShowAddBook] = useState(false);
     const [content, setContent] = useState("");
 
-    const handleShow = (content: string) => {
+    const handleShow = (content?: string) => {
         setShowAddBook(true);
-        setContent(content);
+        if (content) setContent(content);
     };
 
     const handleClose = () => {

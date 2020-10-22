@@ -5,15 +5,14 @@
 @import "./bookshelf";
 @import "./sidebar";
 @import "./modal";
+@import "./form";
+@import "./buttons";
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-html {
     font-family: $primary-font;
+    box-sizing: border-box;
 }
 
 body {
