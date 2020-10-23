@@ -35,20 +35,24 @@ export const AddBookModal: React.FC<Props> = ({ show, content, onCloseClick }) =
             {show && (
                 <div className="overlay">
                     <div className="modal">
-                        <button className="icon-button" onClick={() => onCloseClick()}>
-                            <X />
-                        </button>
                         <form autoComplete="off">
-                            <div className="text-group">
+                            <button className="icon-button" id="closeButton" onClick={() => onCloseClick()}>
+                                <X />
+                            </button>
+                            <div className="book-cover" id="cover">
+                                <div className="book-cover__title"></div>
+                                <div className="book-cover__author"></div>
+                            </div>
+                            <div className="text-group" id="titleField">
                                 <label htmlFor="title">Title</label>
                                 <input type="text" name="title" id="title" required></input>
                             </div>
-                            <div className="text-group">
+                            <div className="text-group" id="authorField">
                                 <label htmlFor="author">Author</label>
                                 <input type="text" name="author" id="author"></input>
                             </div>
-                            <div className="radio-group">
-                                <input type="radio" name="status" id="status-backlog" value="status-backlog" />
+                            <div className="radio-group" id="statusGroup">
+                                <input type="radio" name="status" id="status-backlog" value="status-backlog" required />
                                 <label className="radio-label" htmlFor="status-backlog">
                                     Not started
                                 </label>
@@ -61,7 +65,7 @@ export const AddBookModal: React.FC<Props> = ({ show, content, onCloseClick }) =
                                     Completed
                                 </label>
                             </div>
-                            <div className="button-group">
+                            <div className="button-group" id="buttonGroup">
                                 <button className="secondary-button" onClick={() => onCloseClick()}>
                                     Cancel
                                 </button>
