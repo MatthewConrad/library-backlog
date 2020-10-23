@@ -24,6 +24,7 @@
         }
 
         @include bp(mobile) {
+            padding: 32px 12px;
             min-width: 400px;
         }
     }
