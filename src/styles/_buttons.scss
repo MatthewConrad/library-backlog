@@ -20,6 +20,12 @@
         cursor: pointer;
         transform: scale(1.05);
     }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 4px $action-color, 0 0 4px $action-color, 0 0 4px $action-color,
+            1px 2px 4px rgba($text-color, 0.5);
+    }
 }
 
 .action-button {

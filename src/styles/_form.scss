@@ -10,7 +10,7 @@ form {
             "cover cover titleField titleField titleField"
             "cover cover authorField authorField authorField"
             "cover cover . . ."
-            ". statusGroup statusGroup . ."
+            ". statusGroup statusGroup statusGroup ."
             ". . buttonGroup buttonGroup buttonGroup";
     }
 
@@ -22,7 +22,7 @@ form {
             ". cover ."
             ". titleField ."
             ". authorField ."
-            ". statusGroup ."
+            "statusGroup statusGroup statusGroup"
             "buttonGroup buttonGroup buttonGroup";
     }
 
@@ -60,6 +60,29 @@ form {
 
     #statusGroup {
         grid-area: statusGroup;
+
+        @include bp(mobile) {
+            text-align: center;
+        }
+    }
+
+    #progressGroup {
+        @include bp(desktop) {
+            float: right;
+            margin-right: 56px;
+        }
+
+        @include bp(mobile) {
+            margin-left: 24px;
+        }
+
+        input {
+            width: 64px;
+        }
+
+        span {
+            margin: 0 8px;
+        }
     }
 
     #buttonGroup {
@@ -99,12 +122,19 @@ form {
         &:checked + .radio-label::after {
             content: "";
         }
+
+        &:focus:checked + .radio-label::before {
+            outline: none;
+            box-shadow: 0 0 4px $action-color, 0 0 4px $action-color, 0 0 4px $action-color,
+                1px 2px 4px rgba($text-color, 0.5);
+        }
     }
 
     .radio-label {
-        display: block;
+        display: inline-block;
         position: relative;
         cursor: pointer;
+        line-height: 48px;
 
         &::before,
         &::after {
@@ -117,6 +147,7 @@ form {
             height: 20px;
             width: 20px;
             left: -36px;
+            top: 12px;
             background: white;
             border-radius: 50%;
             border: 1px solid $action-color-lighter;
@@ -124,7 +155,7 @@ form {
 
         &::after {
             left: -33px;
-            top: 3px;
+            top: 15px;
             width: 16px;
             height: 16px;
             border-radius: 50%;
@@ -132,15 +163,10 @@ form {
         }
     }
 
-    .text-group {
-        // padding-bottom: 12px;
-    }
-
     .radio-group {
         @include bp(mobile) {
             margin: 0 auto;
         }
-        // padding-left: 36px;
     }
 
     .button-group {

@@ -1,13 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { X } from "react-feather";
+import { EMPTY_BOOK } from "../helpers/emptyBook";
+import { BookData } from "../types/BookData";
 
 type Props = {
     show: boolean;
-    content: string;
     onCloseClick: () => void;
+    content?: BookData;
+    edit?: boolean;
 };
 
-export const AddBookModal: React.FC<Props> = ({ show, content, onCloseClick }) => {
+export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edit = false }) => {
+    const [book, setBook] = useState(content || EMPTY_BOOK);
+
     const clickCallback = (event: MouseEvent) => {
         if ((event.target as HTMLElement).className === "overlay") {
             onCloseClick();
@@ -17,6 +22,41 @@ export const AddBookModal: React.FC<Props> = ({ show, content, onCloseClick }) =
     const keyCallback = (event: KeyboardEvent) => {
         if (event.code === "Escape") {
             onCloseClick();
+        }
+    };
+
+    const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        switch (event.target.name) {
+            case "title":
+                setBook((prevBook) => ({ ...prevBook, title: value }));
+                break;
+            case "author":
+                setBook((prevBook) => ({ ...prevBook, author: value }));
+                break;
+            case "currentPage":
+                if (value.length > 0) setBook((prevBook) => ({ ...prevBook, currentPage: parseInt(value) }));
+                break;
+            case "totalPages":
+                setBook((prevBook) => ({ ...prevBook, totalPages: parseInt(value) }));
+                break;
+        }
+    };
+
+    const onRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        switch (event.target.value) {
+            case "status-backlog":
+                setBook((prevBook) => ({ ...prevBook, completed: false, currentPage: undefined }));
+                break;
+            case "status-in-progress":
+                setBook((prevBook) => ({ ...prevBook, currentPage: 1, completed: false }));
+                break;
+            case "status-completed":
+                setBook((prevBook) => ({ ...prevBook, completed: true }));
+                break;
+            default:
+                break;
         }
     };
 
@@ -30,46 +70,116 @@ export const AddBookModal: React.FC<Props> = ({ show, content, onCloseClick }) =
         };
     }, []);
 
+    const action = content && edit ? "Update" : "Add to Library";
+    const notStarted = !book.completed && !book.currentPage;
+    const inProgress = !book.completed && book.currentPage !== undefined && book.currentPage > 0;
+    const completed = book.completed;
     return (
         <React.Fragment>
             {show && (
                 <div className="overlay">
                     <div className="modal">
                         <form autoComplete="off">
-                            <button className="icon-button" id="closeButton" onClick={() => onCloseClick()}>
+                            <button
+                                className="icon-button"
+                                id="closeButton"
+                                aria-label="Close window"
+                                onClick={() => onCloseClick()}
+                            >
                                 <X />
                             </button>
                             <div className="book-cover" id="cover">
-                                <div className="book-cover__title"></div>
-                                <div className="book-cover__author"></div>
+                                <div className="book-cover__title">{book.title}</div>
+                                <div className="book-cover__author">{book.author}</div>
                             </div>
                             <div className="text-group" id="titleField">
                                 <label htmlFor="title">Title</label>
-                                <input type="text" name="title" id="title" required></input>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    id="title"
+                                    required
+                                    onChange={onTextChange}
+                                    value={book.title}
+                                ></input>
                             </div>
                             <div className="text-group" id="authorField">
                                 <label htmlFor="author">Author</label>
-                                <input type="text" name="author" id="author"></input>
+                                <input
+                                    type="text"
+                                    name="author"
+                                    id="author"
+                                    required
+                                    onChange={onTextChange}
+                                    value={book.author}
+                                ></input>
                             </div>
-                            <div className="radio-group" id="statusGroup">
-                                <input type="radio" name="status" id="status-backlog" value="status-backlog" required />
-                                <label className="radio-label" htmlFor="status-backlog">
-                                    Not started
-                                </label>
-                                <input type="radio" name="status" id="status-in-progress" value="status-in-progress" />
-                                <label className="radio-label" htmlFor="status-in-progress">
-                                    In progress
-                                </label>
-                                <input type="radio" name="status" id="status-completed" value="status-completed" />
-                                <label className="radio-label" htmlFor="status-completed">
-                                    Completed
-                                </label>
+                            <div className="radio-group" role="radiogroup" aria-label="Status" id="statusGroup">
+                                <div>
+                                    <input
+                                        type="radio"
+                                        name="status"
+                                        id="status-backlog"
+                                        value="status-backlog"
+                                        checked={notStarted}
+                                        onChange={onRadioChange}
+                                    />
+                                    <label className="radio-label" htmlFor="status-backlog">
+                                        Not started
+                                    </label>
+                                </div>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        name="status"
+                                        id="status-in-progress"
+                                        value="status-in-progress"
+                                        checked={inProgress}
+                                        onChange={onRadioChange}
+                                    />
+                                    <label className="radio-label" htmlFor="status-in-progress">
+                                        In progress
+                                    </label>
+                                    {inProgress && (
+                                        <div className="text-group" id="progressGroup">
+                                            <input
+                                                type="text"
+                                                name="currentPage"
+                                                id="currentPage"
+                                                onChange={onTextChange}
+                                                required
+                                            ></input>
+                                            <span>of</span>
+                                            <input
+                                                type="text"
+                                                name="totalPages"
+                                                id="totalPages"
+                                                onChange={onTextChange}
+                                                required
+                                            ></input>
+                                            <span>pages</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        name="status"
+                                        id="status-completed"
+                                        value="status-completed"
+                                        checked={completed}
+                                        onChange={onRadioChange}
+                                    />
+                                    <label className="radio-label" htmlFor="status-completed">
+                                        Completed
+                                    </label>
+                                </div>
                             </div>
                             <div className="button-group" id="buttonGroup">
                                 <button className="secondary-button" onClick={() => onCloseClick()}>
                                     Cancel
                                 </button>
-                                <button className="action-button">Add to Library</button>
+                                <button className="action-button">{action}</button>
                             </div>
                         </form>
                     </div>
