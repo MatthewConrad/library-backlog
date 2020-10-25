@@ -3,9 +3,10 @@ import { BookData } from "../types/BookData";
 
 type Props = {
     data: BookData;
+    onBookClick: (content?: BookData) => void;
 };
 
-export const Book: React.FC<Props> = ({ data }) => {
+export const Book: React.FC<Props> = ({ data, onBookClick }) => {
     let inlineStyle: React.CSSProperties | undefined = undefined;
     if (data.imageUrl) {
         inlineStyle = {
@@ -23,7 +24,13 @@ export const Book: React.FC<Props> = ({ data }) => {
     return (
         <div className="book">
             <div className="book-title">{data.title}</div>
-            <div className="book-cover" style={inlineStyle}>
+            <div
+                className="book-cover"
+                style={inlineStyle}
+                onClick={() => {
+                    onBookClick(data);
+                }}
+            >
                 {!inlineStyle && (
                     <React.Fragment>
                         <div className="book-cover__title">{data.title}</div>

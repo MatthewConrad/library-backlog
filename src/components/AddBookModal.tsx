@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { X } from "react-feather";
-import { EMPTY_BOOK } from "../helpers/emptyBook";
 import { BookData } from "../types/BookData";
 
 type Props = {
     show: boolean;
     onCloseClick: () => void;
-    content?: BookData;
+    content: BookData;
     edit?: boolean;
 };
 
 export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edit = false }) => {
-    const [book, setBook] = useState(content || EMPTY_BOOK);
+    const [book, setBook] = useState<BookData>(content);
 
     const clickCallback = (event: MouseEvent) => {
         if ((event.target as HTMLElement).className === "overlay") {
@@ -70,10 +69,20 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
         };
     }, []);
 
+    useEffect(() => {
+        setBook(content);
+    }, [content]);
+
     const action = content && edit ? "Update" : "Add to Library";
     const notStarted = !book.completed && !book.currentPage;
     const inProgress = !book.completed && book.currentPage !== undefined && book.currentPage > 0;
     const completed = book.completed;
+    let inlineStyle: React.CSSProperties | undefined = undefined;
+    if (book.imageUrl) {
+        inlineStyle = {
+            backgroundImage: "url(" + book.imageUrl + ")",
+        };
+    }
     return (
         <React.Fragment>
             {show && (
@@ -88,9 +97,13 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                             >
                                 <X />
                             </button>
-                            <div className="book-cover" id="cover">
-                                <div className="book-cover__title">{book.title}</div>
-                                <div className="book-cover__author">{book.author}</div>
+                            <div className="book-cover" id="cover" style={inlineStyle}>
+                                {!inlineStyle && (
+                                    <React.Fragment>
+                                        <div className="book-cover__title">{book.title}</div>
+                                        <div className="book-cover__author">{book.author}</div>
+                                    </React.Fragment>
+                                )}
                             </div>
                             <div className="text-group" id="titleField">
                                 <label htmlFor="title">Title</label>
@@ -146,6 +159,7 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                                                 type="text"
                                                 name="currentPage"
                                                 id="currentPage"
+                                                value={book.currentPage}
                                                 onChange={onTextChange}
                                                 required
                                             ></input>
@@ -154,6 +168,7 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                                                 type="text"
                                                 name="totalPages"
                                                 id="totalPages"
+                                                value={book.totalPages}
                                                 onChange={onTextChange}
                                                 required
                                             ></input>

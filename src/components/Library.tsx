@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
-import { Bookshelf } from "./Bookshelf";
 import { BookData } from "../types/BookData";
+import { Book } from "./Book";
 
-export const Library: React.FC = () => {
+type Props = {
+    onBookClick: (content?: BookData) => void;
+};
+
+export const Library: React.FC<Props> = ({ onBookClick }) => {
     const [books, setBooks] = React.useState<BookData[]>();
     useEffect(() => {
         fetch("http://localhost:5000/books")
@@ -27,9 +31,33 @@ export const Library: React.FC = () => {
     return (
         <div className="library">
             <h1>Library</h1>
-            <Bookshelf name="In Progress" books={inProgress} />
-            <Bookshelf name="Backlog" books={backlog} />
-            <Bookshelf name="Completed" books={completed} />
+            <div>
+                <h2>In Progress</h2>
+                <div className="bookshelf">
+                    {inProgress &&
+                        inProgress.map((bookData: BookData, index: number) => {
+                            return <Book data={bookData} key={"book" + index} onBookClick={onBookClick} />;
+                        })}
+                </div>
+            </div>
+            <div>
+                <h2>Backlog</h2>
+                <div className="bookshelf">
+                    {backlog &&
+                        backlog.map((bookData: BookData, index: number) => {
+                            return <Book data={bookData} key={"book" + index} onBookClick={onBookClick} />;
+                        })}
+                </div>
+            </div>
+            <div>
+                <h2>Completed</h2>
+                <div className="bookshelf">
+                    {completed &&
+                        completed.map((bookData: BookData, index: number) => {
+                            return <Book data={bookData} key={"book" + index} onBookClick={onBookClick} />;
+                        })}
+                </div>
+            </div>
         </div>
     );
 };
