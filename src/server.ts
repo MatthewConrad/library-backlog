@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import dbClient from "./api/dbClient";
 import { BookData } from "./types/BookData";
+import searchGoogleBooks from "./api/searchGoogleBooks";
+import { GBooksSearchResult } from "./types/GBooksSearchResult";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const reload = require("reload");
 
@@ -43,6 +45,18 @@ app.get("/books", (req, res) => {
     database
         .getBooks()
         .then((response: BookData[]) => {
+            res.status(200).send(response);
+        })
+        .catch((error: Error) => {
+            res.status(500).send(error);
+        });
+});
+
+app.get("/books/search", (req, res) => {
+    const title = req.query.title as string;
+    const author = req.query.author as string;
+    searchGoogleBooks(title, author)
+        .then((response: GBooksSearchResult[]) => {
             res.status(200).send(response);
         })
         .catch((error: Error) => {
