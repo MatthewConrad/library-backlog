@@ -22,6 +22,28 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
         setSearchResults([]);
     }, [show]);
 
+    const clickCallback = (event: MouseEvent) => {
+        if ((event.target as HTMLElement).className === "overlay") {
+            onCloseClick();
+        }
+    };
+
+    const keyCallback = (event: KeyboardEvent) => {
+        if (event.code === "Escape") {
+            onCloseClick();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("click", clickCallback);
+        document.addEventListener("keydown", keyCallback);
+
+        return () => {
+            document.removeEventListener("click", clickCallback);
+            document.removeEventListener("keydown", keyCallback);
+        };
+    }, []);
+
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setSearching(true);
@@ -59,6 +81,7 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
                     <div className="modal">
                         <form id="searchBookForm" autoComplete="off" onSubmit={onFormSubmit}>
                             <button
+                                type="button"
                                 className="icon-button"
                                 id="closeButton"
                                 aria-label="Close window"
@@ -88,13 +111,15 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
                                 ></input>
                             </div>
                             <div className="button-group" id="buttonGroup">
-                                <button className="secondary-button" onClick={() => onCloseClick()}>
+                                <button type="button" className="secondary-button" onClick={() => onCloseClick()}>
                                     Cancel
                                 </button>
-                                <button className="secondary-button" onClick={() => onManualAddClick()}>
+                                <button type="button" className="secondary-button" onClick={() => onManualAddClick()}>
                                     Add Manually
                                 </button>
-                                <button className="action-button">Search</button>
+                                <button type="submit" className="action-button">
+                                    Search
+                                </button>
                             </div>
                         </form>
                         <div>

@@ -90,6 +90,7 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                     <div className="modal">
                         <form id="addBookForm" autoComplete="off">
                             <button
+                                type="button"
                                 className="icon-button"
                                 id="closeButton"
                                 aria-label="Close window"
@@ -191,10 +192,12 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                                 </div>
                             </div>
                             <div className="button-group" id="buttonGroup">
-                                <button className="secondary-button" onClick={() => onCloseClick()}>
+                                <button type="button" className="secondary-button" onClick={() => onCloseClick()}>
                                     Cancel
                                 </button>
-                                <button className="action-button">{action}</button>
+                                <button type="submit" className="action-button">
+                                    {action}
+                                </button>
                             </div>
                         </form>
                     </div>
