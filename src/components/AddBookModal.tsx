@@ -88,7 +88,7 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
             {show && (
                 <div className="overlay">
                     <div className="modal">
-                        <form autoComplete="off">
+                        <form id="addBookForm" autoComplete="off">
                             <button
                                 className="icon-button"
                                 id="closeButton"

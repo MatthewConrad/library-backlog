@@ -1,94 +1,4 @@
 form {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-gap: 8px 0px;
-
-    @include bp(desktop) {
-        grid-template-areas:
-            "cover cover . . closeButton"
-            "cover cover titleField titleField titleField"
-            "cover cover authorField authorField authorField"
-            "cover cover . . ."
-            ". statusGroup statusGroup statusGroup ."
-            ". . buttonGroup buttonGroup buttonGroup";
-    }
-
-    @include bp(mobile) {
-        grid-template-columns: 24px auto 24px;
-        grid-template-areas:
-            ". cover closeButton"
-            ". cover ."
-            ". cover ."
-            ". titleField ."
-            ". authorField ."
-            "statusGroup statusGroup statusGroup"
-            "buttonGroup buttonGroup buttonGroup";
-    }
-
-    #closeButton {
-        grid-area: closeButton;
-        margin-top: -16px;
-
-        @include bp(desktop) {
-            margin-right: -36px;
-        }
-
-        @include bp(mobile) {
-            margin-left: -24px;
-        }
-    }
-
-    #cover {
-        grid-area: cover;
-
-        @include bp(desktop) {
-            margin: 0 12px 12px;
-        }
-        @include bp(mobile) {
-            margin: 0 auto 12px;
-        }
-    }
-
-    #titleField {
-        grid-area: titleField;
-    }
-
-    #authorField {
-        grid-area: authorField;
-    }
-
-    #statusGroup {
-        grid-area: statusGroup;
-
-        @include bp(mobile) {
-            text-align: center;
-        }
-    }
-
-    #progressGroup {
-        @include bp(desktop) {
-            float: right;
-            margin-right: 56px;
-        }
-
-        @include bp(mobile) {
-            margin-left: 24px;
-        }
-
-        input {
-            width: 64px;
-        }
-
-        span {
-            margin: 0 8px;
-        }
-    }
-
-    #buttonGroup {
-        grid-area: buttonGroup;
-    }
-
     label {
         font-weight: 700;
         color: $text-color;
@@ -180,5 +90,97 @@ form {
         & > * + * {
             margin-left: 12px;
         }
+    }
+}
+
+#addBookForm {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap: 8px 0px;
+
+    @include bp(desktop) {
+        grid-template-areas:
+            "cover cover . . closeButton"
+            "cover cover titleField titleField titleField"
+            "cover cover authorField authorField authorField"
+            "cover cover . . ."
+            ". statusGroup statusGroup statusGroup ."
+            ". . buttonGroup buttonGroup buttonGroup";
+    }
+
+    @include bp(mobile) {
+        grid-template-columns: 24px auto 24px;
+        grid-template-areas:
+            ". cover closeButton"
+            ". cover ."
+            ". cover ."
+            ". titleField ."
+            ". authorField ."
+            "statusGroup statusGroup statusGroup"
+            "buttonGroup buttonGroup buttonGroup";
+    }
+
+    #closeButton {
+        grid-area: closeButton;
+        margin-top: -16px;
+
+        @include bp(desktop) {
+            margin-right: -36px;
+        }
+
+        @include bp(mobile) {
+            margin-left: -24px;
+        }
+    }
+
+    #cover {
+        grid-area: cover;
+
+        @include bp(desktop) {
+            margin: 0 12px 12px;
+        }
+        @include bp(mobile) {
+            margin: 0 auto 12px;
+        }
+    }
+
+    #titleField {
+        grid-area: titleField;
+    }
+
+    #authorField {
+        grid-area: authorField;
+    }
+
+    #statusGroup {
+        grid-area: statusGroup;
+
+        @include bp(mobile) {
+            text-align: center;
+        }
+    }
+
+    #progressGroup {
+        @include bp(desktop) {
+            float: right;
+            margin-right: 56px;
+        }
+
+        @include bp(mobile) {
+            margin-left: 24px;
+        }
+
+        input {
+            width: 64px;
+        }
+
+        span {
+            margin: 0 8px;
+        }
+    }
+
+    #buttonGroup {
+        grid-area: buttonGroup;
     }
 }

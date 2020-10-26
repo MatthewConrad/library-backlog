@@ -1,17 +1,16 @@
 import React from "react";
 import { Sliders } from "react-feather";
-import { BookData } from "../types/BookData";
 
 type Props = {
-    onAddClick: (content?: BookData) => void;
+    onButtonClick: () => void;
 };
 
-export const Sidebar: React.FC<Props> = ({ onAddClick }) => {
+export const Sidebar: React.FC<Props> = ({ onButtonClick }) => {
     return (
         <div className="sidebar">
             <div className="user-image">M</div>
             <div className="button-container">
-                <button className="action-button action-button--round" onClick={() => onAddClick()}>
+                <button className="action-button action-button--round" onClick={() => onButtonClick()}>
                     +
                 </button>
             </div>
