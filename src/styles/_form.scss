@@ -99,6 +99,10 @@ form {
             }
         }
     }
+
+    & + div {
+        padding-bottom: 24px;
+    }
 }
 
 #closeButton {

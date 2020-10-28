@@ -122,14 +122,14 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
                                 </button>
                             </div>
                         </form>
-                        <div>
-                            {searching && searchResults.length == 0 && <div>Searching!</div>}
-                            {!searching &&
-                                searchResults.length > 0 &&
-                                searchResults.map((result, index) => {
+                        {searching && searchResults.length == 0 && <div className="spinner">Searching...</div>}
+                        {!searching && searchResults.length > 0 && (
+                            <div className="search-results">
+                                {searchResults.map((result, index) => {
                                     return <div key={"result" + index}>{result.title}</div>;
                                 })}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
