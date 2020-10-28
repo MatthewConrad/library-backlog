@@ -100,7 +100,7 @@ form {
         }
     }
 
-    & + div {
+    & + .spinner {
         padding-bottom: 24px;
     }
 }
@@ -142,7 +142,7 @@ form {
             "cover cover titleField titleField titleField"
             "cover cover authorField authorField authorField"
             "cover cover . . ."
-            ". statusGroup statusGroup statusGroup ."
+            "statusGroup statusGroup statusGroup statusGroup statusGroup"
             ". buttonGroup buttonGroup buttonGroup buttonGroup";
     }
 
@@ -181,6 +181,9 @@ form {
     }
 
     #statusGroup {
+        @include bp(desktop) {
+            margin-left: 120px;
+        }
         @include bp(mobile) {
             text-align: center;
         }
@@ -221,5 +224,44 @@ form {
     #closeButton {
         margin-top: -20px;
         margin-left: 4px;
+    }
+}
+
+.search-results {
+    display: flex;
+    overflow-x: scroll;
+    padding: 0 24px 24px;
+
+    .search-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-right: 48px;
+        box-sizing: content-box;
+
+        &:last-child {
+            padding-right: 24px;
+        }
+    }
+
+    .search-title {
+        color: $text-color;
+        font-weight: bold;
+    }
+
+    .search-author {
+        color: $text-color-secondary;
+    }
+
+    .book-cover {
+        width: 120px;
+        height: 180px;
+        margin-bottom: 12px;
+    }
+
+    .action-button {
+        width: 96px;
+        margin-top: auto;
     }
 }

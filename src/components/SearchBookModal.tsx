@@ -74,6 +74,17 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
         });
         onCloseClick();
     };
+
+    const onResultAddClick = (result: GBooksSearchResult) => {
+        onAddBookClick({
+            title: result.title,
+            author: result.authors?.join(", "),
+            totalPages: result.pageCount,
+            imageUrl: result.coverImageUrl,
+            completed: false,
+        });
+        onCloseClick();
+    };
     return (
         <React.Fragment>
             {show && (
@@ -126,7 +137,26 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
                         {!searching && searchResults.length > 0 && (
                             <div className="search-results">
                                 {searchResults.map((result, index) => {
-                                    return <div key={"result" + index}>{result.title}</div>;
+                                    let inlineStyle: React.CSSProperties | undefined = undefined;
+                                    if (result.coverImageUrl) {
+                                        inlineStyle = {
+                                            backgroundImage: "url(" + result.coverImageUrl + ")",
+                                        };
+                                    }
+                                    return (
+                                        <div className="search-result" key={"result" + index}>
+                                            <div className="book-cover" style={inlineStyle}></div>
+                                            <div className="search-title">{result.title}</div>
+                                            <div className="search-author">{result.authors?.join(", ")}</div>
+                                            <button
+                                                type="button"
+                                                className="action-button"
+                                                onClick={() => onResultAddClick(result)}
+                                            >
+                                                Add
+                                            </button>
+                                        </div>
+                                    );
                                 })}
                             </div>
                         )}

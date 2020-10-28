@@ -49,7 +49,7 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                 setBook((prevBook) => ({ ...prevBook, completed: false, currentPage: undefined }));
                 break;
             case "status-in-progress":
-                setBook((prevBook) => ({ ...prevBook, currentPage: 1, completed: false }));
+                setBook((prevBook) => ({ ...prevBook, currentPage: content.currentPage || 1, completed: false }));
                 break;
             case "status-completed":
                 setBook((prevBook) => ({ ...prevBook, completed: true }));

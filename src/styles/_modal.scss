@@ -23,7 +23,7 @@
         }
 
         @include bp(mobile) {
-            min-width: 460px;
+            width: 460px;
         }
     }
 }
