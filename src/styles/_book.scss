@@ -37,7 +37,9 @@ $cover-height: 240px;
     background-repeat: no-repeat;
     background-size: cover;
     box-shadow: 2px 4px 8px rgba($text-color, 0.6);
-    transition: all 0.25s ease-in-out;
+    transition-property: transform, box-shadow;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
     position: relative;
 
     &__title,

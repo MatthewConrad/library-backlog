@@ -3,7 +3,7 @@ import { BookData } from "../types/BookData";
 import { Book } from "./Book";
 
 type Props = {
-    onBookClick: (content?: BookData) => void;
+    onBookClick: (content?: BookData, edit: boolean) => void;
 };
 
 export const Library: React.FC<Props> = ({ onBookClick }) => {

@@ -195,6 +195,15 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                                 <button type="button" className="secondary-button" onClick={() => onCloseClick()}>
                                     Cancel
                                 </button>
+                                {edit && (
+                                    <button
+                                        type="button"
+                                        className="secondary-button secondary-button--destructive"
+                                        onClick={() => onCloseClick()}
+                                    >
+                                        Delete
+                                    </button>
+                                )}
                                 <button type="submit" className="action-button">
                                     {action}
                                 </button>

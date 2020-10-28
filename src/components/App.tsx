@@ -12,10 +12,10 @@ const App: React.FC = () => {
     const [content, setContent] = useState<BookData>(EMPTY_BOOK);
     const [edit, setEdit] = useState(false);
 
-    const handleShowAddBook = (bookToShow?: BookData) => {
+    const handleShowAddBook = (bookToShow?: BookData, edit = false) => {
         if (bookToShow) {
             setContent(bookToShow);
-            setEdit(true);
+            setEdit(edit);
         }
         setShowAddBook(true);
     };

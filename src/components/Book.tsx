@@ -3,7 +3,7 @@ import { BookData } from "../types/BookData";
 
 type Props = {
     data: BookData;
-    onBookClick: (content?: BookData) => void;
+    onBookClick: (content?: BookData, edit?: boolean) => void;
 };
 
 export const Book: React.FC<Props> = ({ data, onBookClick }) => {
@@ -28,7 +28,7 @@ export const Book: React.FC<Props> = ({ data, onBookClick }) => {
                 className="book-cover"
                 style={inlineStyle}
                 onClick={() => {
-                    onBookClick(data);
+                    onBookClick(data, true);
                 }}
             >
                 {!inlineStyle && (

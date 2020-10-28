@@ -7,7 +7,9 @@
     font-size: 1em;
     border: none;
     outline: none;
-    transition: all 0.3s ease-in-out;
+    transition-property: transform, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
 
     &--round {
         width: 72px;
@@ -41,6 +43,10 @@
 .secondary-button {
     color: $text-color-secondary;
     background: none;
+
+    &--destructive {
+        color: $destructive-color;
+    }
 }
 
 .secondary-button,
@@ -60,7 +66,9 @@
     background: none;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition-property: transform, background-color, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
 
     &:focus {
         border-radius: 48px;
@@ -70,6 +78,6 @@
 
     svg {
         color: $text-color-secondary;
-        transition: all 0.3s ease-in-out;
+        transition: color 0.3s ease-in-out;
     }
 }

@@ -13,7 +13,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 4px;
-        padding: 32px;
         background-color: $bg-color;
 
         max-height: 96vh;
@@ -24,8 +23,7 @@
         }
 
         @include bp(mobile) {
-            padding: 32px 12px;
-            min-width: 400px;
+            min-width: 460px;
         }
     }
 }

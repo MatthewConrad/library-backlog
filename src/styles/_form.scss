@@ -81,6 +81,8 @@ form {
 
     .button-group {
         @include bp(mobile) {
+            display: flex;
+            flex-direction: column-reverse;
             margin: 12px auto 0;
         }
 
@@ -88,9 +90,39 @@ form {
         text-align: right;
 
         & > * + * {
-            margin-left: 12px;
+            @include bp(desktop) {
+                margin-left: 12px;
+            }
+
+            @include bp(mobile) {
+                margin-bottom: 12px;
+            }
         }
     }
+}
+
+#closeButton {
+    grid-area: closeButton;
+}
+
+#cover {
+    grid-area: cover;
+}
+
+#titleField {
+    grid-area: titleField;
+}
+
+#authorField {
+    grid-area: authorField;
+}
+
+#statusGroup {
+    grid-area: statusGroup;
+}
+
+#buttonGroup {
+    grid-area: buttonGroup;
 }
 
 #addBookForm {
@@ -98,6 +130,7 @@ form {
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-gap: 8px 0px;
+    padding: 32px;
 
     @include bp(desktop) {
         grid-template-areas:
@@ -106,10 +139,11 @@ form {
             "cover cover authorField authorField authorField"
             "cover cover . . ."
             ". statusGroup statusGroup statusGroup ."
-            ". . buttonGroup buttonGroup buttonGroup";
+            ". buttonGroup buttonGroup buttonGroup buttonGroup";
     }
 
     @include bp(mobile) {
+        padding: 32px 12px;
         grid-template-columns: 24px auto 24px;
         grid-template-areas:
             ". cover closeButton"
@@ -122,7 +156,6 @@ form {
     }
 
     #closeButton {
-        grid-area: closeButton;
         margin-top: -16px;
 
         @include bp(desktop) {
@@ -135,8 +168,6 @@ form {
     }
 
     #cover {
-        grid-area: cover;
-
         @include bp(desktop) {
             margin: 0 12px 12px;
         }
@@ -145,17 +176,7 @@ form {
         }
     }
 
-    #titleField {
-        grid-area: titleField;
-    }
-
-    #authorField {
-        grid-area: authorField;
-    }
-
     #statusGroup {
-        grid-area: statusGroup;
-
         @include bp(mobile) {
             text-align: center;
         }
@@ -179,8 +200,22 @@ form {
             margin: 0 8px;
         }
     }
+}
 
-    #buttonGroup {
-        grid-area: buttonGroup;
+#searchBookForm {
+    display: grid;
+    padding: 32px 36px;
+    grid-gap: 12px 0px;
+    grid-template-rows: 0px auto;
+    grid-template-columns: 24px auto auto auto 24px;
+    grid-template-areas:
+        ". . . . closeButton"
+        ". titleField titleField titleField ."
+        ". authorField authorField authorField ."
+        ". buttonGroup buttonGroup buttonGroup .";
+
+    #closeButton {
+        margin-top: -20px;
+        margin-left: 4px;
     }
 }
