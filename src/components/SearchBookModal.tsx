@@ -35,14 +35,19 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
     };
 
     useEffect(() => {
-        document.addEventListener("click", clickCallback);
-        document.addEventListener("keydown", keyCallback);
+        if (show) {
+            window.addEventListener("click", clickCallback);
+            window.addEventListener("keydown", keyCallback);
+        } else {
+            window.removeEventListener("click", clickCallback);
+            window.removeEventListener("keydown", keyCallback);
+        }
 
         return () => {
-            document.removeEventListener("click", clickCallback);
-            document.removeEventListener("keydown", keyCallback);
+            window.removeEventListener("click", clickCallback);
+            window.removeEventListener("keydown", keyCallback);
         };
-    }, []);
+    }, [show]);
 
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

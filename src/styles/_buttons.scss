@@ -38,6 +38,16 @@
     &:hover {
         box-shadow: 1px 4px 12px hsla(hue($action-color), 75%, 25%, 0.5);
     }
+
+    &--destructive {
+        color: $bg-color;
+        background-image: linear-gradient(-180deg, $destructive-color-lighter 0%, $destructive-color 55%);
+        box-shadow: 1px 2px 8px hsla(hue($destructive-color), 75%, 25%, 0.5);
+
+        &:hover {
+            box-shadow: 1px 4px 12px hsla(hue($destructive-color), 75%, 25%, 0.5);
+        }
+    }
 }
 
 .secondary-button {
@@ -46,6 +56,11 @@
 
     &--destructive {
         color: $destructive-color;
+
+        &:hover {
+            background-color: hsl(hue($destructive-color), 20%, 85%);
+            box-shadow: 2px 4px 12px 0 hsla(hue($destructive-color), 15, 15, 0.25);
+        }
     }
 }
 
@@ -55,13 +70,6 @@
         transform: scale(1.05);
         background-color: $bg-color-secondary;
         box-shadow: 2px 4px 12px 0 hsla(hue($bg-color-secondary), 15, 15, 0.25);
-    }
-}
-
-.secondary-button--destructive {
-    &:hover {
-        background-color: hsl(hue($destructive-color), 20%, 85%);
-        box-shadow: 2px 4px 12px 0 hsla(hue($destructive-color), 15, 15, 0.25);
     }
 }
 
