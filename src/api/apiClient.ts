@@ -22,7 +22,7 @@ export async function addBook(book: BookData): Promise<BookData> {
     return addedBook;
 }
 
-export async function updateBook(prevBook: BookData, book: BookData): Promise<BookData> {
+export async function updateBook(book: BookData): Promise<BookData> {
     const options: RequestInit = {
         method: "POST",
         headers: {

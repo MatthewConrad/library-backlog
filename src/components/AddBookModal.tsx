@@ -13,7 +13,13 @@ type Props = {
 };
 
 export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onCloseClick, onBooksModified }) => {
+    const action = edit ? "Update" : "Add to Library";
+    const notStarted = !content.completed && !content.current_page;
+    const inProgress = !content.completed && content.current_page !== undefined && content.current_page > 0;
+    const completed = content.completed;
+
     const [book, setBook] = useState<BookData>(content);
+    const [showPages, setShowPages] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
 
     const clickCallback = (event: MouseEvent) => {
@@ -44,7 +50,8 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                 else setBook((prevBook) => ({ ...prevBook, current_page: undefined }));
                 break;
             case "total_pages":
-                setBook((prevBook) => ({ ...prevBook, total_pages: parseInt(value) }));
+                if (value.length > 0) setBook((prevBook) => ({ ...prevBook, total_pages: parseInt(value) }));
+                else setBook((prevBook) => ({ ...prevBook, total_pages: undefined }));
                 break;
         }
     };
@@ -53,15 +60,19 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
         event.persist();
         switch (event.target.value) {
             case "status-backlog":
-                setBook((prevBook) => ({ ...prevBook, completed: false, current_page: undefined }));
+                setBook((prevBook) => ({ ...prevBook, completed: false, current_page: 0 }));
+                setShowPages(false);
                 break;
             case "status-in-progress":
                 setBook((prevBook) => ({ ...prevBook, current_page: content.current_page || 1, completed: false }));
+                setShowPages(true);
                 break;
             case "status-completed":
                 setBook((prevBook) => ({ ...prevBook, completed: true }));
+                setShowPages(false);
                 break;
             default:
+                setShowPages(false);
                 break;
         }
     };
@@ -89,7 +100,7 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (edit) {
-            updateBook(content, book)
+            updateBook(book)
                 .then((updatedBook: BookData) => {
                     if (updatedBook.id) {
                         onBooksModified();
@@ -138,19 +149,17 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
 
     useEffect(() => {
         setBook(content);
+        setShowPages(inProgress);
         setShowConfirm(false);
-    }, [content]);
+    }, [content, inProgress]);
 
-    const action = edit ? "Update" : "Add to Library";
-    const notStarted = !book.completed && !book.current_page;
-    const inProgress = !book.completed && book.current_page !== undefined && book.current_page >= 0;
-    const completed = book.completed;
     let inlineStyle: React.CSSProperties | undefined = undefined;
     if (book.image_url) {
         inlineStyle = {
             backgroundImage: "url(" + book.image_url + ")",
         };
     }
+
     return (
         <React.Fragment>
             {show && (
@@ -204,7 +213,7 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                                             name="status"
                                             id="status-backlog"
                                             value="status-backlog"
-                                            checked={notStarted}
+                                            defaultChecked={notStarted}
                                             onChange={onRadioChange}
                                         />
                                         <label className="radio-label" htmlFor="status-backlog">
@@ -217,13 +226,13 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                                             name="status"
                                             id="status-in-progress"
                                             value="status-in-progress"
-                                            checked={inProgress}
+                                            defaultChecked={inProgress}
                                             onChange={onRadioChange}
                                         />
                                         <label className="radio-label" htmlFor="status-in-progress">
                                             In progress
                                         </label>
-                                        {inProgress && (
+                                        {showPages && (
                                             <div className="text-group" id="progressGroup">
                                                 <input
                                                     type="text"
@@ -252,7 +261,7 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                                             name="status"
                                             id="status-completed"
                                             value="status-completed"
-                                            checked={completed}
+                                            defaultChecked={completed}
                                             onChange={onRadioChange}
                                         />
                                         <label className="radio-label" htmlFor="status-completed">
