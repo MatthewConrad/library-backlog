@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { X } from "react-feather";
+import { addBook, deleteBook, updateBook } from "../api/apiClient";
 import { BookData } from "../types/BookData";
 import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 type Props = {
     show: boolean;
-    onCloseClick: () => void;
     content: BookData;
     edit?: boolean;
+    onCloseClick: () => void;
+    onBooksModified: () => void;
 };
 
-export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edit = false }) => {
+export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onCloseClick, onBooksModified }) => {
     const [book, setBook] = useState<BookData>(content);
     const [showConfirm, setShowConfirm] = useState(false);
 
@@ -37,11 +39,12 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
             case "author":
                 setBook((prevBook) => ({ ...prevBook, author: value }));
                 break;
-            case "currentPage":
-                if (value.length > 0) setBook((prevBook) => ({ ...prevBook, currentPage: parseInt(value) }));
+            case "current_page":
+                if (value.length > 0) setBook((prevBook) => ({ ...prevBook, current_page: parseInt(value) }));
+                else setBook((prevBook) => ({ ...prevBook, current_page: undefined }));
                 break;
-            case "totalPages":
-                setBook((prevBook) => ({ ...prevBook, totalPages: parseInt(value) }));
+            case "total_pages":
+                setBook((prevBook) => ({ ...prevBook, total_pages: parseInt(value) }));
                 break;
         }
     };
@@ -50,10 +53,10 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
         event.persist();
         switch (event.target.value) {
             case "status-backlog":
-                setBook((prevBook) => ({ ...prevBook, completed: false, currentPage: undefined }));
+                setBook((prevBook) => ({ ...prevBook, completed: false, current_page: undefined }));
                 break;
             case "status-in-progress":
-                setBook((prevBook) => ({ ...prevBook, currentPage: content.currentPage || 1, completed: false }));
+                setBook((prevBook) => ({ ...prevBook, current_page: content.current_page || 1, completed: false }));
                 break;
             case "status-completed":
                 setBook((prevBook) => ({ ...prevBook, completed: true }));
@@ -67,10 +70,16 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
         setShowConfirm(true);
     };
 
-    const onConfirmDelete = (book: BookData) => {
-        console.log("Will delete " + book.id);
-        setShowConfirm(false);
-        onCloseClick();
+    const onConfirmDelete = () => {
+        deleteBook(book)
+            .then(() => {
+                onBooksModified();
+                setShowConfirm(false);
+                onCloseClick();
+            })
+            .catch((error) => {
+                console.log("Need an error dialog for delete.");
+            });
     };
 
     const onCancelDelete = () => {
@@ -80,12 +89,34 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (edit) {
-            console.log("Need to submit for an update");
+            updateBook(content, book)
+                .then((updatedBook: BookData) => {
+                    if (updatedBook.id) {
+                        onBooksModified();
+                        setShowConfirm(false);
+                        onCloseClick();
+                    } else {
+                        throw new Error("Couldn't edit book.");
+                    }
+                })
+                .catch((error) => {
+                    console.log("need to create an error dialog.");
+                });
         } else {
-            console.log("need to submit for create");
+            addBook(book)
+                .then((addedBook: BookData) => {
+                    if (addedBook.id) {
+                        onBooksModified();
+                        setShowConfirm(false);
+                        onCloseClick();
+                    } else {
+                        throw new Error("Couldn't add book.");
+                    }
+                })
+                .catch((error) => {
+                    console.log("need to create an error dialog");
+                });
         }
-        setShowConfirm(false);
-        onCloseClick();
     };
 
     useEffect(() => {
@@ -111,13 +142,13 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
     }, [content]);
 
     const action = edit ? "Update" : "Add to Library";
-    const notStarted = !book.completed && !book.currentPage;
-    const inProgress = !book.completed && book.currentPage !== undefined && book.currentPage > 0;
+    const notStarted = !book.completed && !book.current_page;
+    const inProgress = !book.completed && book.current_page !== undefined && book.current_page >= 0;
     const completed = book.completed;
     let inlineStyle: React.CSSProperties | undefined = undefined;
-    if (book.imageUrl) {
+    if (book.image_url) {
         inlineStyle = {
-            backgroundImage: "url(" + book.imageUrl + ")",
+            backgroundImage: "url(" + book.image_url + ")",
         };
     }
     return (
@@ -196,18 +227,18 @@ export const AddBookModal: React.FC<Props> = ({ show, onCloseClick, content, edi
                                             <div className="text-group" id="progressGroup">
                                                 <input
                                                     type="text"
-                                                    name="currentPage"
-                                                    id="currentPage"
-                                                    value={book.currentPage}
+                                                    name="current_page"
+                                                    id="current_page"
+                                                    value={book.current_page}
                                                     onChange={onTextChange}
                                                     required
                                                 ></input>
                                                 <span>of</span>
                                                 <input
                                                     type="text"
-                                                    name="totalPages"
-                                                    id="totalPages"
-                                                    value={book.totalPages}
+                                                    name="total_pages"
+                                                    id="total_pages"
+                                                    value={book.total_pages}
                                                     onChange={onTextChange}
                                                     required
                                                 ></input>

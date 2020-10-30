@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { BookData } from "../types/BookData";
 
 type Props = {
     show: boolean;
-    onDeleteClick: (book: BookData) => void;
+    onDeleteClick: () => void;
     onCancelClick: () => void;
 };
 
@@ -49,7 +48,7 @@ export const ConfirmDeleteModal: React.FC<Props> = ({ show, onDeleteClick, onCan
                             <button
                                 type="button"
                                 className="action-button action-button--destructive"
-                                onClick={() => onDeleteClick}
+                                onClick={onDeleteClick}
                             >
                                 Delete
                             </button>

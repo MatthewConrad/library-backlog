@@ -25,6 +25,9 @@ if (!process.env.DB_PORT) {
 }
 
 const app: express.Application = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 const database: dbClient = new dbClient(
     process.env.DB_HOST,
     process.env.DB_NAME,

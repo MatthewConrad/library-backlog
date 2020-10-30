@@ -84,8 +84,8 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
         onAddBookClick({
             title: result.title,
             author: result.authors?.join(", "),
-            totalPages: result.pageCount,
-            imageUrl: result.coverImageUrl,
+            total_pages: result.pageCount,
+            image_url: result.coverImageUrl,
             completed: false,
         });
         onCloseClick();

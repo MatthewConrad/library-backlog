@@ -3,41 +3,41 @@
         {
             "title": "Harry Potter (French)",
             "author": "J.K. Rowling",
-            "imageUrl": "https://books.google.com/books/content?id=nvijsUyJYR4C&printsec=frontcover&img=1&zoom=1&source=gbs_api",
-            "currentPage": 125,
-            "totalPages": 511,
+            "image_url": "https://books.google.com/books/content?id=nvijsUyJYR4C&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "current_page": 125,
+            "total_pages": 511,
             "completed": false
         },
         {
             "title": "Dark Matter",
             "author": "Blake Crouch",
-            "imageUrl": "https://books.google.com/books/content?id=85nrCgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
-            "currentPage": 270,
-            "totalPages": 320,
+            "image_url": "https://books.google.com/books/content?id=85nrCgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "current_page": 270,
+            "total_pages": 320,
             "completed": false
         },
         {
             "title": "Find Me",
             "author": "Andre Aciman",
-            "imageUrl": "https://books.google.com/books/content?id=rVUuyQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "image_url": "https://books.google.com/books/content?id=rVUuyQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
             "completed": false
         },
         {
             "title": "Someone Who Will Love You In All Your Damaged Glory",
             "author": "Raphael Bob-Waksberg",
-            "imageUrl": "https://books.google.com/books/content?id=RoxuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "image_url": "https://books.google.com/books/content?id=RoxuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
             "completed": true
         },
         {
             "title": "Stories of Your Life and Others",
             "author": "Ted Chiang",
-            "imageUrl": "http://books.google.com/books/content?id=WTBA-wzX7cwC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "image_url": "http://books.google.com/books/content?id=WTBA-wzX7cwC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
             "completed": true
         },
         {
             "title": "The Oracle Year",
             "author": "Charles Soule",
-            "imageUrl": "http://books.google.com/books/content?id=zYUkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+            "image_url": "http://books.google.com/books/content?id=zYUkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
             "completed": true
         },
         {

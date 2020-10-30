@@ -27,6 +27,9 @@ export default class dbClient {
             if (index < length) parameterization = parameterization.concat(", ");
         }
 
+        console.log(Object.keys(book).toString());
+        console.log(parameterization);
+        console.log(...Object.values(book));
         const createdBook: QueryResult<BookData> = await this.pool.query(
             `INSERT INTO books (${Object.keys(book).toString()}) VALUES (${parameterization}) RETURNING *`,
             [...Object.values(book)]
@@ -35,7 +38,7 @@ export default class dbClient {
         return createdBook.rows[0];
     }
 
-    public async updateBook(book: BookData): Promise<BookData> {
+    public async updateBook(book: Partial<BookData>): Promise<BookData> {
         if (!book.id) {
             throw new Error("Cannot update book without an id.");
         }
@@ -50,7 +53,7 @@ export default class dbClient {
         });
 
         const updatedBook: QueryResult<BookData> = await this.pool.query(
-            `UPDATE books SET ${parameterization} WHERE id=$${length + 1} RETURN *`,
+            `UPDATE books SET ${parameterization} WHERE id=$${length + 1} RETURNING *`,
             [...Object.values(book), id]
         );
 

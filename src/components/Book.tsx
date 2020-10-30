@@ -8,16 +8,16 @@ type Props = {
 
 export const Book: React.FC<Props> = ({ data, onBookClick }) => {
     let inlineStyle: React.CSSProperties | undefined = undefined;
-    if (data.imageUrl) {
+    if (data.image_url) {
         inlineStyle = {
-            backgroundImage: "url(" + data.imageUrl + ")",
+            backgroundImage: "url(" + data.image_url + ")",
         };
     }
 
     let progressCompleteStyle: React.CSSProperties | undefined = undefined;
-    if (data.currentPage && data.totalPages) {
+    if (data.current_page && data.total_pages && !data.completed) {
         progressCompleteStyle = {
-            width: (data.currentPage / data.totalPages) * 100 + "%",
+            width: (data.current_page / data.total_pages) * 100 + "%",
         };
     }
 
@@ -39,7 +39,7 @@ export const Book: React.FC<Props> = ({ data, onBookClick }) => {
                 )}
                 {progressCompleteStyle && (
                     <div className="book-progress">
-                        <div className="pages-complete">{data.currentPage + " / " + data.totalPages}</div>
+                        <div className="pages-complete">{data.current_page + " / " + data.total_pages}</div>
                         <div className="progress-bar">
                             <div className="progress-complete" style={progressCompleteStyle} />
                         </div>

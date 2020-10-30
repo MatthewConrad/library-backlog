@@ -3,26 +3,16 @@ import { BookData } from "../types/BookData";
 import { Book } from "./Book";
 
 type Props = {
-    onBookClick: (content?: BookData, edit: boolean) => void;
+    books: BookData[];
+    onBookClick: (content?: BookData, edit?: boolean) => void;
 };
 
-export const Library: React.FC<Props> = ({ onBookClick }) => {
-    const [books, setBooks] = React.useState<BookData[]>();
-    useEffect(() => {
-        fetch("http://localhost:5000/books")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setBooks(data);
-            });
-    }, []);
-
+export const Library: React.FC<Props> = ({ books, onBookClick }) => {
     const inProgress: BookData[] | undefined = books?.filter((book: BookData) => {
-        return book.currentPage;
+        return book.current_page && !book.completed;
     });
     const backlog: BookData[] | undefined = books?.filter((book: BookData) => {
-        return !book.completed && !book.currentPage;
+        return !book.completed && !book.current_page;
     });
     const completed: BookData[] | undefined = books?.filter((book: BookData) => {
         return book.completed;

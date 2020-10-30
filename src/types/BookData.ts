@@ -2,11 +2,11 @@ export type BookData = {
     id?: number;
     title: string;
     author: string;
-    imageUrl?: string;
-    currentPage?: number;
-    totalPages?: number;
+    image_url?: string;
+    current_page?: number;
+    total_pages?: number;
     completed: boolean;
-    dateAdded?: Date;
-    dateFinished?: Date;
-    lastUpdated?: Date;
+    date_added?: Date;
+    date_finished?: Date;
+    last_updated?: Date;
 };
