@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { X } from "react-feather";
 import { addBook, deleteBook, updateBook } from "../api/apiClient";
 import { BookData } from "../types/BookData";
@@ -20,6 +20,8 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
 
     const [book, setBook] = useState<BookData>(content);
     const [showPages, setShowPages] = useState(false);
+    const [currentPage, setCurrentPage] = useState("");
+    const [totalPages, setTotalPages] = useState("");
     const [showConfirm, setShowConfirm] = useState(false);
 
     const clickCallback = (event: MouseEvent) => {
@@ -46,10 +48,12 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                 setBook((prevBook) => ({ ...prevBook, author: value }));
                 break;
             case "current_page":
+                setCurrentPage(value);
                 if (value.length > 0) setBook((prevBook) => ({ ...prevBook, current_page: parseInt(value) }));
                 else setBook((prevBook) => ({ ...prevBook, current_page: undefined }));
                 break;
             case "total_pages":
+                setTotalPages(value);
                 if (value.length > 0) setBook((prevBook) => ({ ...prevBook, total_pages: parseInt(value) }));
                 else setBook((prevBook) => ({ ...prevBook, total_pages: undefined }));
                 break;
@@ -64,7 +68,8 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                 setShowPages(false);
                 break;
             case "status-in-progress":
-                setBook((prevBook) => ({ ...prevBook, current_page: content.current_page || 1, completed: false }));
+                if (currentPage.length === 0 || parseInt(currentPage) == 0) setCurrentPage("1");
+                setBook((prevBook) => ({ ...prevBook, current_page: parseInt(currentPage) || 1, completed: false }));
                 setShowPages(true);
                 break;
             case "status-completed":
@@ -150,6 +155,8 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
     useEffect(() => {
         setBook(content);
         setShowPages(inProgress);
+        setCurrentPage(content.current_page?.toString() || "");
+        setTotalPages(content.total_pages?.toString() || "");
         setShowConfirm(false);
     }, [content, inProgress]);
 
@@ -238,7 +245,7 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                                                     type="text"
                                                     name="current_page"
                                                     id="current_page"
-                                                    value={book.current_page}
+                                                    value={currentPage}
                                                     onChange={onTextChange}
                                                     required
                                                 ></input>
@@ -247,7 +254,7 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                                                     type="text"
                                                     name="total_pages"
                                                     id="total_pages"
-                                                    value={book.total_pages}
+                                                    value={totalPages}
                                                     onChange={onTextChange}
                                                     required
                                                 ></input>
