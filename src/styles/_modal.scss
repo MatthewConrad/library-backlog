@@ -27,18 +27,32 @@
         }
     }
 
-    #confirmDeleteModal {
+    #confirmDeleteModal,
+    #infoModal {
         width: 400px;
-        height: 160px;
         padding: 24px;
         text-align: center;
 
         .button-group {
-            margin-top: 24px;
-
             & > * + * {
                 margin-left: 24px;
             }
+        }
+    }
+
+    #confirmDeleteModal {
+        height: 160px;
+
+        .button-group {
+            margin-top: 24px;
+        }
+    }
+
+    #infoModal {
+        height: 120px;
+
+        .button-group {
+            margin-top: 12px;
         }
     }
 }

@@ -7,9 +7,10 @@ type Props = {
     show: boolean;
     onCloseClick: () => void;
     onAddBookClick: (content?: BookData) => void;
+    onError: (message: string) => void;
 };
 
-export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBookClick }) => {
+export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBookClick, onError }) => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [searching, setSearching] = useState(false);
@@ -63,10 +64,12 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
             })
             .then((results) => {
                 setSearching(false);
-                setSearchResults(results);
+                if (results.length == 0) onError("Your search didn't find any books.");
+                else setSearchResults(results);
             })
             .catch((error) => {
                 console.log(error);
+                onError("Something went wrong during your search.");
             });
     };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X } from "react-feather";
 import { addBook, deleteBook, updateBook } from "../api/apiClient";
 import { BookData } from "../types/BookData";
@@ -10,9 +10,17 @@ type Props = {
     edit?: boolean;
     onCloseClick: () => void;
     onBooksModified: () => void;
+    onError: (message: string) => void;
 };
 
-export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onCloseClick, onBooksModified }) => {
+export const AddBookModal: React.FC<Props> = ({
+    show,
+    content,
+    edit = false,
+    onCloseClick,
+    onBooksModified,
+    onError,
+}) => {
     const action = edit ? "Update" : "Add to Library";
     const notStarted = !content.completed && !content.current_page;
     const inProgress = !content.completed && content.current_page !== undefined && content.current_page > 0;
@@ -119,7 +127,8 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                     }
                 })
                 .catch((error) => {
-                    console.log("need to create an error dialog.");
+                    console.log(error);
+                    onError("Something went wrong while trying to update your book.");
                 });
         } else {
             addBook(book)
@@ -133,7 +142,8 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                     }
                 })
                 .catch((error) => {
-                    console.log("need to create an error dialog");
+                    console.log(error);
+                    onError("Something went wrong while trying to add your book.");
                 });
         }
     };
@@ -150,7 +160,8 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
                 onCloseClick();
             })
             .catch((error) => {
-                console.log("Need an error dialog for delete.");
+                console.log(error);
+                onError("Something went wrong while trying to delete your book.");
             });
     };
 

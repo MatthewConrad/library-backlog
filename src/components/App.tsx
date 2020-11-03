@@ -3,6 +3,7 @@ import { getBooks } from "../api/apiClient";
 import { EMPTY_BOOK } from "../helpers/emptyBook";
 import { BookData } from "../types/BookData";
 import { AddBookModal } from "./AddBookModal";
+import { InfoModal } from "./InfoModal";
 import { Library } from "./Library";
 import { SearchBookModal } from "./SearchBookModal";
 import { Sidebar } from "./Sidebar";
@@ -11,7 +12,9 @@ const App: React.FC = () => {
     const [books, setBooks] = React.useState<BookData[]>([]);
     const [showAddBook, setShowAddBook] = useState(false);
     const [showSearchBook, setShowSearchBook] = useState(false);
+    const [showInfoModal, setShowInfoModal] = useState(false);
     const [content, setContent] = useState<BookData>(EMPTY_BOOK);
+    const [infoMessage, setShowInfoMessage] = useState("");
     const [edit, setEdit] = useState(false);
 
     const refreshBooks = () => {
@@ -46,6 +49,16 @@ const App: React.FC = () => {
         setShowSearchBook(false);
     };
 
+    const handleShowInfoModal = (message: string) => {
+        setShowInfoMessage(message);
+        setShowInfoModal(true);
+    };
+
+    const handleCloseInfoModal = () => {
+        setShowInfoMessage("");
+        setShowInfoModal(false);
+    };
+
     return (
         <div className="App">
             <Sidebar onButtonClick={handleShowSearchBook} />
@@ -54,6 +67,7 @@ const App: React.FC = () => {
                 show={showSearchBook}
                 onCloseClick={handleCloseSearchBook}
                 onAddBookClick={handleShowAddBook}
+                onError={handleShowInfoModal}
             />
             <AddBookModal
                 show={showAddBook}
@@ -61,7 +75,9 @@ const App: React.FC = () => {
                 edit={edit}
                 onCloseClick={handleCloseAddBook}
                 onBooksModified={refreshBooks}
+                onError={handleShowInfoModal}
             />
+            <InfoModal show={showInfoModal} message={infoMessage} onCloseClick={handleCloseInfoModal} />
         </div>
     );
 };
