@@ -40,7 +40,7 @@ export const InfoModal: React.FC<Props> = ({ show, message, onCloseClick }) => {
                     <div className="modal" id="infoModal">
                         <div>{message}</div>
                         <div className="button-group">
-                            <button type="button" className="secondary-button" onClick={onCloseClick}>
+                            <button type="button" className="action-button" onClick={onCloseClick}>
                                 OK
                             </button>
                         </div>
