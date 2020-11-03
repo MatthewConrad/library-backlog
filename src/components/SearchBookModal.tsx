@@ -22,32 +22,32 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
         setSearchResults([]);
     }, [show]);
 
-    const clickCallback = (event: MouseEvent) => {
-        if ((event.target as HTMLElement).className === "overlay") {
-            onCloseClick();
-        }
-    };
-
-    const keyCallback = (event: KeyboardEvent) => {
-        if (event.code === "Escape") {
-            onCloseClick();
-        }
-    };
-
     useEffect(() => {
+        const onClick = (event: MouseEvent) => {
+            if ((event.target as HTMLElement).className === "overlay") {
+                onCloseClick();
+            }
+        };
+
+        const onKeydown = (event: KeyboardEvent) => {
+            if (event.code === "Escape") {
+                onCloseClick();
+            }
+        };
+
         if (show) {
-            window.addEventListener("click", clickCallback);
-            window.addEventListener("keydown", keyCallback);
+            window.addEventListener("click", onClick);
+            window.addEventListener("keydown", onKeydown);
         } else {
-            window.removeEventListener("click", clickCallback);
-            window.removeEventListener("keydown", keyCallback);
+            window.removeEventListener("click", onClick);
+            window.removeEventListener("keydown", onKeydown);
         }
 
         return () => {
-            window.removeEventListener("click", clickCallback);
-            window.removeEventListener("keydown", keyCallback);
+            window.removeEventListener("click", onClick);
+            window.removeEventListener("keydown", onKeydown);
         };
-    }, [show]);
+    }, [show, onCloseClick]);
 
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -64,7 +64,6 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
             .then((results) => {
                 setSearching(false);
                 setSearchResults(results);
-                console.log(results);
             })
             .catch((error) => {
                 console.log(error);
@@ -90,6 +89,7 @@ export const SearchBookModal: React.FC<Props> = ({ show, onCloseClick, onAddBook
         });
         onCloseClick();
     };
+
     return (
         <React.Fragment>
             {show && (

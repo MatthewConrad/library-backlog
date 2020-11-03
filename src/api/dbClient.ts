@@ -27,9 +27,6 @@ export default class dbClient {
             if (index < length) parameterization = parameterization.concat(", ");
         }
 
-        console.log(Object.keys(book).toString());
-        console.log(parameterization);
-        console.log(...Object.values(book));
         const createdBook: QueryResult<BookData> = await this.pool.query(
             `INSERT INTO books (${Object.keys(book).toString()}) VALUES (${parameterization}) RETURNING *`,
             [...Object.values(book)]

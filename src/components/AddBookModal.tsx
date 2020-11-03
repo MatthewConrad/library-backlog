@@ -24,19 +24,42 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
     const [totalPages, setTotalPages] = useState("");
     const [showConfirm, setShowConfirm] = useState(false);
 
-    const clickCallback = (event: MouseEvent) => {
-        if ((event.target as HTMLElement).className === "overlay") {
-            setShowConfirm(false);
-            onCloseClick();
-        }
-    };
+    useEffect(() => {
+        setBook(content);
+        setShowPages(inProgress);
+        setCurrentPage(content.current_page?.toString() || "");
+        setTotalPages(content.total_pages?.toString() || "");
+        setShowConfirm(false);
+    }, [content, inProgress]);
 
-    const keyCallback = (event: KeyboardEvent) => {
-        if (event.code === "Escape") {
-            setShowConfirm(false);
-            onCloseClick();
+    useEffect(() => {
+        const onClick = (event: MouseEvent) => {
+            if ((event.target as HTMLElement).className === "overlay") {
+                setShowConfirm(false);
+                onCloseClick();
+            }
+        };
+
+        const onKeydown = (event: KeyboardEvent) => {
+            if (event.code === "Escape") {
+                setShowConfirm(false);
+                onCloseClick();
+            }
+        };
+
+        if (show && !showConfirm) {
+            window.addEventListener("click", onClick);
+            window.addEventListener("keydown", onKeydown);
+        } else {
+            window.removeEventListener("click", onClick);
+            window.removeEventListener("keydown", onKeydown);
         }
-    };
+
+        return () => {
+            window.removeEventListener("click", onClick);
+            window.removeEventListener("keydown", onKeydown);
+        };
+    }, [show, showConfirm, onCloseClick]);
 
     const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -82,26 +105,6 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
         }
     };
 
-    const onDeleteClick = () => {
-        setShowConfirm(true);
-    };
-
-    const onConfirmDelete = () => {
-        deleteBook(book)
-            .then(() => {
-                onBooksModified();
-                setShowConfirm(false);
-                onCloseClick();
-            })
-            .catch((error) => {
-                console.log("Need an error dialog for delete.");
-            });
-    };
-
-    const onCancelDelete = () => {
-        setShowConfirm(false);
-    };
-
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (edit) {
@@ -135,30 +138,25 @@ export const AddBookModal: React.FC<Props> = ({ show, content, edit = false, onC
         }
     };
 
-    useEffect(() => {
-        if (show && !showConfirm) {
-            window.addEventListener("click", clickCallback);
-            window.addEventListener("keydown", keyCallback);
-            console.log("added event listeners for add modal");
-        } else {
-            window.removeEventListener("click", clickCallback);
-            window.removeEventListener("keydown", keyCallback);
-            console.log("removed event listeners for add modal");
-        }
+    const onDeleteClick = () => {
+        setShowConfirm(true);
+    };
 
-        return () => {
-            window.removeEventListener("click", clickCallback);
-            window.removeEventListener("keydown", keyCallback);
-        };
-    }, [show, showConfirm]);
+    const onConfirmDelete = () => {
+        deleteBook(book)
+            .then(() => {
+                onBooksModified();
+                setShowConfirm(false);
+                onCloseClick();
+            })
+            .catch((error) => {
+                console.log("Need an error dialog for delete.");
+            });
+    };
 
-    useEffect(() => {
-        setBook(content);
-        setShowPages(inProgress);
-        setCurrentPage(content.current_page?.toString() || "");
-        setTotalPages(content.total_pages?.toString() || "");
+    const onCancelDelete = () => {
         setShowConfirm(false);
-    }, [content, inProgress]);
+    };
 
     let inlineStyle: React.CSSProperties | undefined = undefined;
     if (book.image_url) {

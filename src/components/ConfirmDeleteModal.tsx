@@ -7,33 +7,32 @@ type Props = {
 };
 
 export const ConfirmDeleteModal: React.FC<Props> = ({ show, onDeleteClick, onCancelClick }) => {
-    const clickCallback = (event: MouseEvent) => {
-        if ((event.target as HTMLElement).className === "overlay") {
-            console.log("LISTENER FIRED!");
-            onCancelClick();
-        }
-    };
-
-    const keyCallback = (event: KeyboardEvent) => {
-        if (event.code === "Escape") {
-            onCancelClick();
-        }
-    };
-
     useEffect(() => {
+        const onClick = (event: MouseEvent) => {
+            if ((event.target as HTMLElement).className === "overlay") {
+                onCancelClick();
+            }
+        };
+
+        const onKeydown = (event: KeyboardEvent) => {
+            if (event.code === "Escape") {
+                onCancelClick();
+            }
+        };
+
         if (show) {
-            window.addEventListener("click", clickCallback);
-            window.addEventListener("keydown", keyCallback);
+            window.addEventListener("click", onClick);
+            window.addEventListener("keydown", onKeydown);
         } else {
-            window.removeEventListener("click", clickCallback);
-            window.removeEventListener("keydown", keyCallback);
+            window.removeEventListener("click", onClick);
+            window.removeEventListener("keydown", onKeydown);
         }
 
         return () => {
-            window.removeEventListener("click", clickCallback);
-            window.removeEventListener("keydown", keyCallback);
+            window.removeEventListener("click", onClick);
+            window.removeEventListener("keydown", onKeydown);
         };
-    }, [show]);
+    }, [show, onCancelClick]);
 
     return (
         <React.Fragment>

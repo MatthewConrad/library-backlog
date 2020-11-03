@@ -16,7 +16,6 @@ const App: React.FC = () => {
 
     const refreshBooks = () => {
         getBooks().then((response: BookData[]) => {
-            console.log("Fetched books");
             setBooks(response);
         });
     };
