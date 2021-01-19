@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import dbClient from "./api/dbClient";
+import dbClient from "./db/dbClient";
 import { BookData } from "./types/BookData";
 import searchGoogleBooks from "./api/searchGoogleBooks";
 import { GBooksSearchResult } from "./types/GBooksSearchResult";
